@@ -1,0 +1,18 @@
+@model DetailViewModel
+
+@{
+    if (Model.Layout is not null)
+    {
+        Layout = Model.Layout;
+    }
+
+    ViewData["Title"] = "Detail";
+}
+
+<button class="bg-white p-4 rounded shadow">Back</button>
+
+<p>@Model.Country.Identifiable.Name</p>
+<p>@Model.Country.Detail.Value.TopLevelDomain</p>
+<p>@Model.Country.Detail.Value.Currencies</p>
+<p>@Model.Country.Detail.Value.Languages</p>
+<p>@Model.Country.Detail.Value.SubRegion</p>

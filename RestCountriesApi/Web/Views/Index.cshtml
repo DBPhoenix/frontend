@@ -1,0 +1,62 @@
+﻿@using Core.Entities
+
+@model IndexViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Home Page";
+}
+
+<div x-data="{
+    filter: '',
+    search: '',
+    shouldShow(name, region) {
+        return (!this.filter || this.filter === region) &&
+               (!this.search || name.toLowerCase().includes(this.search.toLowerCase()));
+    }
+}">
+    <div class="flex justify-between mb-12 min-h-12">
+        <div class="relative w-4/12">
+            <i class="fa-solid fa-magnifying-glass text-gray-400 absolute top-1/2 left-6" style="transform: translate(0, -50%);"></i>
+            <input x-model="search" type="text" class="w-full h-full rounded ps-16 text-xs outline-none shadow" placeholder="Search for a country...">
+        </div>
+        <div x-data="{ open: false }" class="relative rounded w-48 bg-white shadow">
+            <div x-on:click="open = !open" class="inline-flex items-center w-full h-full">
+                <button class="text-left flex-1 ps-6 text-xs" x-text="filter ? filter : 'Filter by region'">Filter by region</button>
+                <i class="fa-solid fa-chevron-down px-4 text-xs text-gray-400"></i>
+            </div>
+            <ul x-cloak x-show="open" x-on:click.outside="filter = ''; open = false" class="py-4 rounded shadow mt-1 w-full bg-white absolute">
+            @foreach (string region in Model.Regions)
+            {
+                <li class="text-xs ps-6 py-1 hover:bg-gray-100 cursor-pointer" x-on:click="filter = '@region'; open = false">@region</li>
+            }
+            </ul>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-4 gap-20">
+    @foreach (Country country in Model.Countries)
+    {
+        if (!country.Overview.HasValue)
+        {
+            <p>error!</p>
+            return;
+        }
+
+        <div hx-get="detail?cca3=@country.Identifiable.CCA3" hx-trigger="click" hx-target="main" hx-swap="innerHTML" hx-push-url="true" x-show="shouldShow('@country.Identifiable.Name', '@country.Overview.Value.Region') == true" class="bg-white rounded-b-md shadow-md">
+            <img class="w-full h-40 rounded-t-md" src="@country.Overview.Value.FlagUri" alt="@country.Overview.Value.FlagAlt" loading="lazy" />
+            <div class="p-6">
+                <h6 class="text-bold mb-4">@country.Identifiable.Name</h6>
+                <ul class="text-sm">
+                    <li><b>Population:</b> @country.Overview.Value.Population.ToString("N0")</li>
+                    <li class="mt-1.5"><b>Region:</b> @country.Overview.Value.Region</li>
+                    @if (country.Overview.Value.Capital is not null)
+                    {
+                        <li class="mt-1.5"><b>Capital:</b> @country.Overview.Value.Capital</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+    </div>
+</div>
