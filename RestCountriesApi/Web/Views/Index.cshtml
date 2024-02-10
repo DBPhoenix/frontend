@@ -3,7 +3,11 @@
 @model IndexViewModel
 
 @{
-    Layout = "_Layout";
+    if (Model.Layout is not null)
+    {
+        Layout = Model.Layout;
+    }
+
     ViewData["Title"] = "Home Page";
 }
 

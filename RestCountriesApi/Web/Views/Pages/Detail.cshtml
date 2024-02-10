@@ -1,3 +1,4 @@
+@using Core.Entities
 @model DetailViewModel
 
 @{
@@ -9,10 +10,37 @@
     ViewData["Title"] = "Detail";
 }
 
-<button class="bg-white p-4 rounded shadow">Back</button>
+<button hx-get="/" hx-trigger="click" hx-target="main" hx-swap="innerHTML" hx-push-url="true" class="bg-white py-2 px-12 mb-12 rounded shadow">Back</button>
 
-<p>@Model.Country.Identifiable.Name</p>
-<p>@Model.Country.Detail.Value.TopLevelDomain</p>
-<p>@Model.Country.Detail.Value.Currencies</p>
-<p>@Model.Country.Detail.Value.Languages</p>
-<p>@Model.Country.Detail.Value.SubRegion</p>
+<div class="flex">
+    <div class="flex-1 relative">
+        <img class="w-full h-full absolute pe-36" src="@Model.Country.Overview.Value.FlagUri" alt="@Model.Country.Overview.Value.FlagAlt"/>
+    </div>
+    <div class="flex-1 py-12"> <!--  -->
+        <h1 class="text-3xl font-bold mb-8">@Model.Country.Identifiable.Name</h1>
+        <ul class="grid grid-cols-2 gap-2 mb-16">
+            <li><b>Native Name:</b> @Model.Country.Detail.Value.NativeName</li>
+            @if (!string.IsNullOrWhiteSpace(Model.Country.Detail.Value.TopLevelDomain)) { <li><b>Top Level Domain:</b> @Model.Country.Detail.Value.TopLevelDomain</li> }
+            <li class="col-start-1"><b>Population:</b> @Model.Country.Overview.Value.Population.ToString("N0")</li>
+            @if (Model.Country.Detail.Value.Currencies.Length > 0) { <li><b>Currencies:</b> @(string.Join(", ", Model.Country.Detail.Value.Currencies))</li> }
+            <li class="col-start-1"><b>Region:</b> @Model.Country.Overview.Value.Region</li>
+            @if (Model.Country.Detail.Value.Languages.Length > 0) { <li><b>Languages:</b> @(string.Join(", ", Model.Country.Detail.Value.Languages))</li> }
+            @if (!string.IsNullOrWhiteSpace(Model.Country.Detail.Value.SubRegion)) { <li><b>Sub Region:</b> @Model.Country.Detail.Value.SubRegion</li> }
+            @if (!string.IsNullOrWhiteSpace(Model.Country.Overview.Value.Capital)) { <li class="col-start-1"><b>Capital:</b> @Model.Country.Overview.Value.Capital</li> }
+        </ul>
+        <div class="min-h-28">
+        @if (Model.Country.Detail.Value.BorderCountries.Length > 0)
+        {
+            <div class="flex">
+                <p class="self-center me-4"><b>Border Countries:</b></p>
+                <ul class="flex-1 grid grid-cols-4 gap-2">
+                    @foreach (CountryIdentifiable country in Model.Country.Detail.Value.BorderCountries)
+                    {
+                        <li><button hx-get="detail?cca3=@country.CCA3" hx-trigger="click" hx-target="main" hx-swap="innerHTML" hx-push-url="true" class="bg-white w-full py-1 rounded shadow">@country.Name</button></li>
+                    }
+                </ul>
+            </div>
+        }
+        </div>
+    </div>
+</div>

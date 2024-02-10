@@ -13,6 +13,7 @@ public class RootController(ICountryService service) : Controller
     {
         return View("/Views/Index.cshtml", new IndexViewModel
         {
+            Layout = HXHelpers.IsHistoryRestoreRequest(Request.Headers) ? "/Views/Shared/_Layout.cshtml" : default,
             Countries = service.All(),
             Regions = Enum.GetNames(typeof(Region))
         });

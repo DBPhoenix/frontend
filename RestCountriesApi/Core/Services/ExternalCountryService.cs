@@ -64,7 +64,7 @@ internal class ExternalCountryService(HttpClient client) : ICountryService
         if (codes.Length == 0)
             return [];
 
-        string requestUri = $"https://restcountries.com/v3.1/alpha?codes={string.Join(",", codes)}&fields=ccn3,name"; 
+        string requestUri = $"https://restcountries.com/v3.1/alpha?codes={string.Join(",", codes)}&fields=cca3,name"; 
         CountryNameDto[] result = client.GetFromJsonAsync<CountryNameDto[]>(requestUri).Result!;
         return result.Select(data => new CountryIdentifiable
         {
