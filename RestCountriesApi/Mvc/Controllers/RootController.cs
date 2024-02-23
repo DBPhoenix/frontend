@@ -1,10 +1,10 @@
 using Core.Enums;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Web.Framework;
-using Web.Models;
+using Mvc.Framework;
+using Mvc.Models;
 
-namespace Web.Controllers;
+namespace Mvc.Controllers;
 
 public class RootController(ICountryService service) : Controller
 {

@@ -1,0 +1,42 @@
+@page "/detail"
+@using Core.Entities
+
+<NavLink href="/"><button class="bg-white py-2 px-12 mb-12 rounded shadow">Back</button></NavLink>
+
+@if (!Country.HasValue || !Country.Value.Overview.HasValue || !Country.Value.Detail.HasValue)
+{
+    return;
+}
+
+<div class="flex">
+    <div class="flex-1 relative">
+        <img class="w-full h-full absolute pe-36" src="@Country?.Overview?.FlagUri" alt="@Country?.Overview?.FlagAlt"/>
+    </div>
+    <div class="flex-1 py-12"> <!--  -->
+        <h1 class="text-3xl font-bold mb-8">@Country?.Identifiable.Name</h1>
+        <ul class="grid grid-cols-2 gap-2 mb-16">
+            <li><b>Native Name:</b> @Country?.Detail?.NativeName</li>
+            @if (!string.IsNullOrWhiteSpace(Country?.Detail?.TopLevelDomain)) { <li><b>Top Level Domain:</b> @Country?.Detail?.TopLevelDomain</li> }
+            <li class="col-start-1"><b>Population:</b> @Country?.Overview?.Population.ToString("N0")</li>
+            @if (Country?.Detail?.Currencies.Length > 0) { <li><b>Currencies:</b> @(string.Join(", ", Country?.Detail?.Currencies!))</li> }
+            <li class="col-start-1"><b>Region:</b> @Country?.Overview?.Region</li>
+            @if (Country?.Detail?.Languages.Length > 0) { <li><b>Languages:</b> @(string.Join(", ", Country?.Detail?.Languages!))</li> }
+            @if (!string.IsNullOrWhiteSpace(Country?.Detail?.SubRegion)) { <li><b>Sub Region:</b> @Country?.Detail?.SubRegion</li> }
+            @if (!string.IsNullOrWhiteSpace(Country?.Overview?.Capital)) { <li class="col-start-1"><b>Capital:</b> @Country?.Overview?.Capital</li> }
+        </ul>
+        <div class="min-h-28">
+        @if (Country?.Detail?.BorderCountries.Length > 0)
+        {
+            <div class="flex">
+                <p class="self-center me-4"><b>Border Countries:</b></p>
+                <ul class="flex-1 grid grid-cols-4 gap-2">
+                    @foreach (CountryIdentifiable country in Country?.Detail?.BorderCountries!)
+                    {
+                        <li><NavLink href="@($"detail?cca3={country.CCA3}")"><button class="bg-white w-full py-1 rounded shadow">@country.Name</button></NavLink></li>
+                    }
+                </ul>
+            </div>
+        }
+        </div>
+    </div>
+</div>

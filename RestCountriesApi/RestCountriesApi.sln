@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{B061D9F2-A6B8-4B34-91DF-442680B05A0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc", "Mvc\Mvc.csproj", "{B061D9F2-A6B8-4B34-91DF-442680B05A0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{4EEB9CDF-B9BF-4C99-A5CA-D6D56E3C5DF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor", "Blazor\Blazor.csproj", "{3FE29E48-5C0A-4CDE-94C0-D8F9D9BB240A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{4EEB9CDF-B9BF-4C99-A5CA-D6D56E3C5DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EEB9CDF-B9BF-4C99-A5CA-D6D56E3C5DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EEB9CDF-B9BF-4C99-A5CA-D6D56E3C5DF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FE29E48-5C0A-4CDE-94C0-D8F9D9BB240A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FE29E48-5C0A-4CDE-94C0-D8F9D9BB240A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FE29E48-5C0A-4CDE-94C0-D8F9D9BB240A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FE29E48-5C0A-4CDE-94C0-D8F9D9BB240A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

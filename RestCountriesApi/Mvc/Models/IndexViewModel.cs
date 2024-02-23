@@ -1,6 +1,6 @@
 using Core.Entities;
 
-namespace Web.Models;
+namespace Mvc.Models;
 
 public class IndexViewModel : BaseViewModel
 {

@@ -1,4 +1,4 @@
-namespace Web.Framework;
+namespace Mvc.Framework;
 
 public static class HXHelpers
 {

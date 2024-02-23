@@ -7,5 +7,7 @@ namespace Core;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection RegisterCoreDependencies(this IServiceCollection services) =>
-        services.AddScoped<ICountryService, ExternalCountryService>();
+        services
+            .AddSingleton<HttpClient>(_ => new HttpClient())
+            .AddScoped<ICountryService, ExternalCountryService>();
 }
